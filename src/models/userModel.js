@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-// const JWT_SECRET = 'thisisasecretformyapp'
+
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -25,16 +25,17 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 })
 
+
 userSchema.methods.generateAuthToken = async function () {
     const user = this
     const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET)
 
-    // user.tokens = user.tokens.concat({ token })
     user.token = token
     await user.save()
 
     return token
 }
+
 
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({ email })
@@ -51,6 +52,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
     return user
 }
 
+
 userSchema.statics.findByToken = async (token) => {
     let user = await User.findOne({ token })
 
@@ -61,13 +63,13 @@ userSchema.statics.findByToken = async (token) => {
     return user
 }
 
+
 userSchema.statics.findByID = async (id) => {
     const user = await User.findOne({ id })
     return user
 }
 
 
-// Hash the plain text password before saving
 userSchema.pre('save', async function (next) {
     const user = this
 
@@ -77,6 +79,8 @@ userSchema.pre('save', async function (next) {
 
     next()
 })
+
+
 
 const User = mongoose.model('User', userSchema)
 

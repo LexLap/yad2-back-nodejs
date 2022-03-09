@@ -119,9 +119,6 @@ const adSchema = new mongoose.Schema({
     photoUrls: {
         type: Array
     }
-
-
-
 });
 
 const Advertisement = mongoose.model("Advertisement", adSchema);
