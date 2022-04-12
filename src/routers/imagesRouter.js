@@ -2,7 +2,7 @@ const express = require('express');
 const { uploadImageToS3 } = require('../middleware/s3-handlers');
 const Image = require('../models/imageModel');
 const router = new express.Router();
-const getFileType = require('../functions/getFileType');
+const getFileType = require('../utils/getFileType');
 
 
 router.post('/', uploadImageToS3, async (req, res) => {
