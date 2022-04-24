@@ -7,7 +7,6 @@ router.post('/subscribe', async (req, res) => {
 
     let email = { email: req.body.email }
     if (await User.findOne(email)) {
-
         res.status(400).send("EMAIL_EXISTS")
     } else
         try {
@@ -20,7 +19,9 @@ router.post('/subscribe', async (req, res) => {
                 user: { username: user.email, id: user._id }
             })
         } catch (e) {
-            res.status(400).send(e)
+            res.status(500).send({
+                message: "Internal server error"
+            })
         }
 
 })
@@ -38,8 +39,8 @@ router.post('/login', async (req, res) => {
 
     } catch (error) {
         logger.log('error', error.message)
-        res.status(401).send({
-            message: error.message
+        res.status(500).send({
+            message: "Internal server error"
         })
     }
 })
@@ -52,7 +53,9 @@ router.post("/logout", async (req, res) => {
         await user.save()
         res.send();
     } catch (err) {
-        res.status(500).send(err);
+        res.status(500).send({
+            message: "Internal server error"
+        })
     }
 })
 

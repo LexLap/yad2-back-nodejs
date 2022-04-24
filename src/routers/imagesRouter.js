@@ -32,7 +32,9 @@ router.post('/', uploadImageToS3, async (req, res) => {
 
         res.send(image);
     } catch (err) {
-        console.log(err);
+        res.status(500).send({
+            message: "Internal server error"
+        })
     }
 })
 

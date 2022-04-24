@@ -10,7 +10,9 @@ router.post('/', async (req, res) => {
         await ad.save()
     } catch (e) {
         console.log(e)
-        res.status(500).send({ message: "Internal server error" })
+        res.status(500).send({
+            message: "Internal server error"
+        })
     }
     res.send('OK')
 })
@@ -56,7 +58,9 @@ router.post('/get-ads', async (req, res) => {
         res.send([]);
     } catch (err) {
         console.log(err);
-        res.status(500).send({ message: "Internal server error" })
+        res.status(500).send({
+            message: "Internal server error"
+        })
     }
 });
 
