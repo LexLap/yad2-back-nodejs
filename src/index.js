@@ -16,6 +16,16 @@ app.use("/", usersRouter)
 app.use("/ads", adsRouter)
 app.use("/images", imagesRouter)
 
-app.use('*', async (req, res) => res.status(404).send({ message: "Page not found" }))
+
+app.use(async function (err, req, res, next) {
+
+    if (!err) return next();
+
+    res.status(500).send({
+        message: "Global server error"
+    })
+});
+
+app.use(async (req, res) => res.status(404).send({ message: "Page not found" }))
 
 app.listen(port, () => console.log("Server connected, port:", port));

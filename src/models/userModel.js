@@ -17,6 +17,9 @@ const userSchema = new mongoose.Schema({
         minlength: 1,
         trim: true,
     },
+    ads: [{
+        type: mongoose.Types.ObjectId, ref: 'Advertisement'
+    }],
     token: {
         type: String,
         required: false

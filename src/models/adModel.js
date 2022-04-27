@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const adSchema = new mongoose.Schema({
     ownerID: {
-        type: String
+        type: mongoose.Types.ObjectId, ref: 'User'
     },
     formID: {
         type: String
